@@ -1,0 +1,12 @@
+{
+  "shortUrls": [
+    {
+      "hostName": "https://www.google.com",
+      "shortName": "Tes1G"
+    },
+    {
+      "hostName": "https://tw.yahoo.com/",
+      "shortName": "TeS2Y"
+    }
+  ]
+}
