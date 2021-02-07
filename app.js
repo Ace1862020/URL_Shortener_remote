@@ -46,7 +46,9 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
   // 從 body 取得資料，存進 option 
   const option = req.body
+  const host = 'http://localhost:3000/'
   option.status = 'success'
+  option.host = host
   // 從資料庫找有沒有與 option.hostName 重複的 hostName
   ShortUrl.findOne({ hostName: option.hostName })
     .lean() // 轉換成乾淨的 JavaScript 資料
@@ -82,6 +84,20 @@ app.post('/', (req, res) => {
           }) // 錯誤處理
           .catch((error) => console.log(error))
       }
+    })
+    .catch((error) => console.log(error))
+})
+
+// 短網址對應路由
+app.get('/:shortName', (req, res) => {
+  // 取得 shortName
+  const shortName = req.params.shortName
+  // 從資料庫找到特定的 shortName
+  return ShortUrl.findOne({ shortName: shortName })
+    .lean()
+    .then((url) => {
+      console.log(url)
+      return res.redirect(url.hostName)
     })
     .catch((error) => console.log(error))
 })
