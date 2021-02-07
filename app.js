@@ -4,7 +4,8 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
 const ShortUrl = require('./models/shortUrl')
-const { on } = require('./models/shortUrl')
+const generateShortUrl = require('./public/generateShortUrl')
+const shortUrl = require('./models/shortUrl')
 const PORT = 3000
 
 const app = express()
@@ -34,12 +35,23 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', (req, res) => {
-  const hostName = req.body.hostName
-  const oneHostName = new ShortUrl({ hostName })
 
-  return oneHostName.save()
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
+  const option = req.body
+  let shortName = generateShortUrl()
+
+  shortUrl.find()
+    .lean()
+    .then(() => {
+      shortUrl.create({
+        hostName: option.hostName,
+        shortName: shortName
+      })
+    })
+    .then(() => {
+      option.shortName = shortName
+      res.render('index', { option })
+    })
+    .catch((error) => console.log(error))
 })
 
 // 啟動伺服器

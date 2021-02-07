@@ -12,9 +12,16 @@
   <form action="/" method="POST">
     <div class="row my-5">
       <!-- URL input -->
-      <input type="text" class="form-control" name="hostName" id="url-input" placeholder="Host">
+      {{#unless option.shortName}}
+      <input type="text" class="form-control" name="hostName" id="url-input" placeholder="Input URL">
+      {{/unless}}
 
       <!-- if URL format correct || exists Show Success!!! -->
+      {{#if option.shortName}}
+      <div class="p-3 mb-2 text-dark " style="background-color: skyblue;">
+        {{option.shortName}}
+      </div>
+      {{/if}}
 
       <!-- if URL format error || blank Show Oops!!! -->
 
@@ -22,7 +29,13 @@
       <!-- if Opss show back Button -->
       <!-- else shorten Button -->
       <div class="d-flex justify-content-center my-5">
-        <button class="btn btn-primary" type="submit">shorten</button>
+        {{#unless option.shortName}}
+        <button class="btn btn-outline-primary" type="submit">shorten</button>
+        {{/unless}}
+        {{#if option.shortName}}
+        <button class="btn btn-primary" type="submit">copy</button>
+        <a href="/" class="btn btn-secondary">Back</a>
+        {{/if}}
       </div>
     </div>
   </form>

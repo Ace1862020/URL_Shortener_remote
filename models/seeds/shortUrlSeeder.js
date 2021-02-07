@@ -20,5 +20,6 @@ db.once('open', () => {
     })
   })
 
+    .then(() => db.close())
   console.log('urlData update done!')
 })
