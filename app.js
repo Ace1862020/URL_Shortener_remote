@@ -95,10 +95,7 @@ app.get('/:shortName', (req, res) => {
   // 從資料庫找到特定的 shortName
   return ShortUrl.findOne({ shortName: shortName })
     .lean()
-    .then((url) => {
-      console.log(url)
-      return res.redirect(url.hostName)
-    })
+    .then((url) => { res.redirect(url.hostName) })
     .catch((error) => console.log(error))
 })
 
