@@ -13,13 +13,11 @@ db.on('error', () => {
 db.once('open', () => {
   console.log('MongoDB connected!!!')
 
-  urlData.shortUrls.forEach(item => {
+  urlData.links.forEach(item => {
     shortUrl.create({
-      "hostName": item.hostName,
-      "shortName": item.shortName
+      "hostUrl": item.hostUrl,
+      "shortUrl": item.shortUrl
     })
   })
-
-    .then(() => db.close())
   console.log('urlData update done!')
 })

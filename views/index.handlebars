@@ -9,46 +9,14 @@
     </a>
   </div>
 
-  <form action="/" method="POST">
+  <form action="/shorten" method="POST">
     <div class="row my-5">
 
-      <!-- if URL format correct || exists Show Success!!! -->
-      {{#ifEqual option.status 'success'}}
-      <h3>Success!! Please use this link：</h3>
-      {{/ifEqual}}
-
-      <!-- if URL format error || blank Show Oops!!! -->
-      {{#ifEqual option.status 'oops'}}
-      <h3 style="color: firebrick;">Oops!! Please enter the correct link!!</h3>
-      {{/ifEqual}}
-
-
       <!-- URL input -->
-      {{#unless option.shortName}}
-      <input type="text" class="form-control" name="hostName" id="url-input" placeholder="Input URL here">
-      {{/unless}}
+      <input type="text" class="form-control" name="hostUrl" id="url-input" placeholder="Input URL here">
 
-      {{#if option.shortName}}
-      <div class="p-3 mb-2 text-dark rounded-3" style="background-color: transparent;">
-        <a href="{{option.shortName}}" style="text-decoration: none;">
-          <h3 style="color: deepskyblue;">{{option.host}}{{option.shortName}} </h3>
-        </a>
-      </div>
-      {{/if}}
-
-
-
-      <!-- if Success show copy Button -->
-      <!-- if Opss show back Button -->
-      <!-- else shorten Button -->
-      <div class="d-flex justify-content-between my-5">
-        {{#unless option.shortName}}
+      <div class="d-flex justify-content-center my-5">
         <button class="btn btn-outline-primary" type="submit">shorten</button>
-        {{/unless}}
-        {{#if option.shortName}}
-        <button class="btn btn-primary" type="submit">copy</button>
-        <a href="/" class="btn btn-secondary">Back</a>
-        {{/if}}
       </div>
     </div>
   </form>

@@ -1,12 +1,12 @@
 {
-  "shortUrls": [
+  "links": [
     {
-      "hostName": "https://www.google.com",
-      "shortName": "Tes1G"
+      "hostUrl": "https://www.google.com",
+      "shortUrl": "Tes1G"
     },
     {
-      "hostName": "https://tw.yahoo.com/",
-      "shortName": "TeS2Y"
+      "hostUrl": "https://tw.yahoo.com/",
+      "shortUrl": "TeS2Y"
     }
   ]
 }

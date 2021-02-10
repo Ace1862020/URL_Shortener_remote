@@ -43,59 +43,49 @@ app.get('/', (req, res) => {
   res.render('index')
 })
 
-app.post('/', (req, res) => {
+app.post('/shorten', (req, res) => {
   // 從 body 取得資料，存進 option 
-  const option = req.body
-  const host = 'http://localhost:3000/'
-  option.status = 'success'
-  option.host = host
-  // 從資料庫找有沒有與 option.hostName 重複的 hostName
-  ShortUrl.findOne({ hostName: option.hostName })
-    .lean() // 轉換成乾淨的 JavaScript 資料
+  const hostUrl = req.body.hostUrl
+  let shortUrl = ''
+
+  ShortUrl.find({ hostUrl: hostUrl })
+    .lean()
     .then((url) => {
-      if (url) {
-        // 如果 hostName 有符合，就取出同物件中的 shortName
-        option.shortName = url.shortName
-        return res.render('index', { option })
+      const urlData = url[0]
+      if (url.length !== 0) {
+        shortUrl = urlData.shortUrl
+        res.render('shorten', { urlData })
       } else {
-
-        let shortName = generateShortUrl()
-        // 從資料庫中取出所有資料
-        ShortUrl.find()
-          // 找出有沒有重複的 shortName
-          .then((url) => {
-            while (url.find((item) => {
-              item.shortName === shortName
-            })) {
-              // 重新再隨機取一組 shortName
-              shortName = generateShortUrl()
-            }
+        //res.redirect('/')
+        shortUrl = generateShortUrl()
+        ShortUrl.find({ shortUrl: shortUrl })
+          .lean()
+          .then((urls) => {
+            if (urls.length !== 0) {
+              while (url[0].shortUrl === shortUrl) { shortUrl = generateShortUrl() }
+            } ShortUrl.create({
+              hostUrl,
+              shortUrl: shortUrl
+            })
           })
-
-        // 沒有重複的 shortName 就寫入資料
-        ShortUrl.create({
-          hostName: option.hostName,
-          shortName: shortName
-        })
-          // 寫入資料後，設定 shortName ，渲染到 index
-          .then(() => {
-            option.shortName = shortName
-            return res.render('index', { option })
-          }) // 錯誤處理
-          .catch((error) => console.log(error))
+          .catch((error) => { console.log(error) })
       }
+    })
+    .then(() => {
+      res.render('shorten', { urlData })
     })
     .catch((error) => console.log(error))
 })
 
 // 短網址對應路由
-app.get('/:shortName', (req, res) => {
+app.get('/shorten/:shortUrl', (req, res) => {
   // 取得 shortName
-  const shortName = req.params.shortName
+  const shortUrl = req.params.shortUrl
   // 從資料庫找到特定的 shortName
-  return ShortUrl.findOne({ shortName: shortName })
+  return ShortUrl.findOne({ shortUrl: shortUrl })
     .lean()
-    .then((url) => { res.redirect(url.hostName) })
+    // 使用取得的資料重新導向，hostName 的 Value
+    .then((url) => { res.redirect(url.hostUrl) })
     .catch((error) => console.log(error))
 })
 
