@@ -1,24 +1,23 @@
 <div class="container p-3">
-
-  <div class="text-center my-5">
-    <h1>URL Shortener</h1>
-  </div>
-  <div class="text-center">
-    <a href="/">
-      <i class="fas fa-link fa-9x" style="color: #ff922b;"></i>
-    </a>
-  </div>
-
-  <form action="/shorten" method="POST">
-    <div class="row my-5">
-
-      <!-- URL input -->
-      <input type="text" class="form-control" name="hostUrl" id="url-input" placeholder="Input URL here">
-
-      <div class="d-flex justify-content-center my-5">
-        <button class="btn btn-outline-primary" type="submit">shorten</button>
-      </div>
+  <div class="row justify-content-center">
+    <div class="col-8 text-center my-5">
+      <h1>URL Shortener</h1>
     </div>
-  </form>
-
+    <div class="col-8 text-center">
+      <a href="/">
+        <i class="fas fa-link fa-9x" style="color: #ff922b;"></i>
+      </a>
+    </div>
+    <div class="col-8">
+      <form action="/shorten" method="POST">
+        <div class="my-5">
+          <!-- URL input -->
+          <input type="text" class="form-control" name="hostUrl" id="url-input" placeholder="Input URL here">
+          <div class="d-flex justify-content-center my-5">
+            <button class="btn btn-outline-primary" type="submit">shorten</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

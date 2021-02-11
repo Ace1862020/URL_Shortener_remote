@@ -45,36 +45,45 @@ app.get('/', (req, res) => {
 
 app.post('/shorten', (req, res) => {
   // 從 body 取得資料，存進 option 
-  const hostUrl = req.body.hostUrl
+  //const bodyData = req.body
+  //const hostUrl = bodyData.hostUrl
+  const bodyData = req.body
   let shortUrl = ''
 
-  ShortUrl.find({ hostUrl: hostUrl })
-    .lean()
-    .then((url) => {
-      const urlData = url[0]
-      if (url.length !== 0) {
-        shortUrl = urlData.shortUrl
-        res.render('shorten', { urlData })
-      } else {
-        //res.redirect('/')
-        shortUrl = generateShortUrl()
-        ShortUrl.find({ shortUrl: shortUrl })
-          .lean()
-          .then((urls) => {
-            if (urls.length !== 0) {
-              while (url[0].shortUrl === shortUrl) { shortUrl = generateShortUrl() }
-            } ShortUrl.create({
-              hostUrl,
-              shortUrl: shortUrl
+  if (bodyData.hostUrl !== '' && bodyData.hostUrl.includes('http')) {
+    ShortUrl.find({ hostUrl: bodyData.hostUrl })
+      .lean()
+      .then((url) => {
+        if (url.length !== 0) {
+          bodyData.shortUrl = url[0].shortUrl
+          bodyData.status = 'success'
+          return res.render('shorten', { bodyData: bodyData })
+        } else {
+          //res.redirect('/')
+          shortUrl = generateShortUrl()
+          ShortUrl.find({ shortUrl: bodyData.shortUrl })
+            .lean()
+            .then((urls) => {
+              while (urls.length !== 0) {
+                shortUrl = generateShortUrl()
+              }
+              ShortUrl.create({
+                hostUrl: bodyData.hostUrl,
+                shortUrl: shortUrl
+              }).then(() => {
+                bodyData.status = 'success'
+                bodyData.shortUrl = shortUrl
+                return res.render('shorten', { bodyData })
+              })
             })
-          })
-          .catch((error) => { console.log(error) })
-      }
-    })
-    .then(() => {
-      res.render('shorten', { urlData })
-    })
-    .catch((error) => console.log(error))
+            .catch((error) => { console.log(error) })
+        }
+      })
+      .catch((error) => console.log(error))
+  } else {
+    bodyData.status = 'failure'
+    res.render('shorten', { bodyData })
+  }
 })
 
 // 短網址對應路由
