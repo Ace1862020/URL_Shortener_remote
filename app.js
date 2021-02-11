@@ -2,12 +2,9 @@ const express = require('express')
 const exphbs = require('express-handlebars')
 const Handlebars = require('handlebars')
 const bodyParser = require('body-parser')
-const mongoose = require('mongoose')
-
-const ShortUrl = require('./models/shortUrl')
-const generateShortUrl = require('./public/generateShortUrl')
 
 const routes = require('./routes')
+require('./config/mongoose')
 
 
 const PORT = 3000
@@ -28,18 +25,7 @@ Handlebars.registerHelper('ifEqual', function (status, outputStatus, options) {
   }
 })
 
-// mongoose 連線 MongoDB 設定
-mongoose.connect('mongodb://localhost/url-shortener', { useNewUrlParser: true, useUnifiedTopology: true })
-// 暫存連線狀態
-const db = mongoose.connection
-// 連線失敗
-db.on('error', () => {
-  console.log('MongoDB error!!!')
-})
-// 連線成功
-db.once('open', () => {
-  console.log('MongoDB connected!!!')
-})
+
 
 app.use(routes)
 
