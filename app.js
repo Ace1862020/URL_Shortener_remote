@@ -7,7 +7,7 @@ const routes = require('./routes')
 require('./config/mongoose')
 
 
-const PORT = 3000
+const PORT = process.env.PORT || 3000
 const app = express()
 
 // 使用 handlebars，main 為預設布局
@@ -25,13 +25,7 @@ Handlebars.registerHelper('ifEqual', function (status, outputStatus, options) {
   }
 })
 
-
-
 app.use(routes)
-
-// 首頁路由
-
-
 
 // 啟動伺服器
 app.listen(PORT, () => {
