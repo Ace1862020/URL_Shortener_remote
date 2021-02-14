@@ -17,9 +17,9 @@
 * [nodemon](https://www.npmjs.com/package/nodemon) (version - 2.0.7) - 伺服器輔助
 * [Express](https://www.npmjs.com/package/express) Framework (version - 4.17.1) - 應用程式框架
 * [Express-handlebars](https://www.npmjs.com/package/express-handlebars) (version - 5.2.0) - 模板引擎
-* [body-parser](https://www.npmjs.com/package/body-parser)
-* [MongoDB](https://www.mongodb.com/)
-* [Mongoose](https://www.npmjs.com/package/mongoose)
+* [body-parser](https://www.npmjs.com/package/body-parser) (version - 1.19.0) - Node.js body-parser middleware
+* [MongoDB](https://www.mongodb.com/) (version - 4.2.11) - 資料庫
+* [Mongoose](https://www.npmjs.com/package/mongoose) (version - 5.10.15) - MongoDB 的 ODM 可在程式中與資料庫溝通
 * [Visual Stuldio Code](https://code.visualstudio.com/download) - 開發環境
 
 ## Install - 安裝
