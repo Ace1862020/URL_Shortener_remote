@@ -23,3 +23,32 @@
 * [Visual Stuldio Code](https://code.visualstudio.com/download) - 開發環境
 
 ## Install - 安裝
+1. 開啟終端機(Terminal) 或 (Git Bash) -> 到欲存放專案的本機位置 並執行:
+```
+git clone https://github.com/Ace1862020/URL_Shortener_remote.git
+```
+2. 使用終端機(Terminal) 或 (Git Bash) -> 進入到放此專案的資料夾
+```
+cd url-shortener
+```
+3. 使用終端機(Terminal) 或 (Git Bash) -> 安裝 npm 套件
+```
+npm install
+```
+4. 安裝 nodemon
+```
+npm install -g nodemon
+```
+5. 匯入種子資料到資料庫
+```
+npm run seed
+```
+6. 啟動伺服器，執行 app.js 檔案
+```
+npm run dev
+```
+7. 終端機顯示以下字樣，表示連線成功
+```
+App running on http://localhost:3000
+MongoDB connected!!!
+```
