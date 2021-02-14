@@ -6,7 +6,12 @@
 
     <div class="col-8 text-center">
       <a href="/">
+        {{#ifEqual bodyData.status 'success'}}
         <i class="fas fa-link fa-9x" style="color:mediumaquamarine;"></i>
+        {{/ifEqual}}
+        {{#ifEqual bodyData.status 'failure'}}
+        <i class="fas fa-link fa-9x" style="color:gray;"></i>
+        {{/ifEqual}}
       </a>
     </div>
 

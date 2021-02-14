@@ -24,11 +24,15 @@
     crossorigin="anonymous"></script>
   <script>
     function copyOnclick() {
+      // 取得 id 為 copy-url 的 DOM節點
       const copyUrl = document.querySelector('#copy-url')
       const copyBtn = document.querySelector('#copy-btn')
       copyUrl.select()
       copyUrl.setSelectionRange(0, 99999)
+      // 使用此方法來複製 copyUrl 內的字串
+      // 此方法只能用在 input 類型的標籤
       document.execCommand('copy')
+      // 完成複製會改變按鈕的內文與樣式
       copyBtn.innerHTML = 'Copied'
       copyBtn.classList = 'btn btn-primary'
     }
