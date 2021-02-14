@@ -14,9 +14,10 @@ const app = express()
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
+// 使用 body-parser
 app.use(bodyParser.urlencoded({ extended: true }))
 
-// 自訂 helper
+// 自訂 handlebars helper
 Handlebars.registerHelper('ifEqual', function (status, outputStatus, options) {
   if (status === outputStatus) {
     return options.fn(this)

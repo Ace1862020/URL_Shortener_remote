@@ -1,12 +1,18 @@
+// 引用：Express 與 Express 路由器
 const express = require('express')
 const router = express.Router()
 
+// 引用：ShortUrl model
 const ShortUrl = require('../../models/shortUrl')
+
+// 引用：產生隨機5碼英數的function
 const generateShortUrl = require('../../public/generateShortUrl')
 
+const HostLink = process.env.PORT ? 'https://stormy-journey-71059.herokuapp.com/shorten/' : 'http://localhost:3000/shorten/'
 
 router.post('/', (req, res) => {
   const bodyData = req.body
+  bodyData.HostLink = HostLink
   let shortUrl = ''
 
   if (bodyData.hostUrl !== '' && bodyData.hostUrl.includes('http')) {
